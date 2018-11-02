@@ -1,50 +1,49 @@
+# Script to be used to test new implementations without breaking the game
+
 import pygame
+import random
+import colorAndProperties
+import Player
 
-# Define some colors
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
 
+# Initialize pygame and create window
 pygame.init()
-
-# Set the width and height of the screen [width, height]
-size = (1024, 768)
-screen = pygame.display.set_mode(size)
-
-pygame.display.set_caption("A Gabe, Well and Fer game.")
-
-# Loop until the user clicks the close button.
-done = False
-
-# Used to manage how fast the screen updates
+pygame.mixer.init()
+screen = pygame.display.set_mode((colorAndProperties.WIDTH, colorAndProperties.HEIGHT))
+pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 
+
+all_sprites = pygame.sprite.Group()
+player = Player.newPlayer()
+all_sprites.add(player)
+
+#Game Loop
+running = True
+
 # -------- Main Program Loop -----------
-while not done:
-    # --- Main event loop
+while running:
+    # keep the loop running at the right speed
+    clock.tick(colorAndProperties.FPS)
+
+    # Process input (events)
     for event in pygame.event.get():
+        #check for closing the window
         if event.type == pygame.QUIT:
-            done = True
+            running = False
+    # Update
+    all_sprites.update()
 
-    # --- Game logic should go here
+    # Draw / render
+        # background image
+    screen.fill(colorAndProperties.BLACK)
 
-    # --- Screen-clearing code goes here
+    all_sprites.draw(screen)
 
-    # Here, we clear the screen to white. Don't put other drawing commands
-    # above this, or they will be erased with this command.
+        #drawing code should go here
 
-    # If you want a background image, replace this clear with blit'ing the
-    # background image.
-    screen.fill(WHITE)
-
-    # --- Drawing code should go here
-
-    # --- Go ahead and update the screen with what we've drawn.
+        # *after* drawing everything, flip the display (double buffering concept)
     pygame.display.flip()
-
-    # --- Limit to 60 frames per second
-    clock.tick(60)
 
 # Close the window and quit.
 pygame.quit()
