@@ -1,7 +1,8 @@
-
 #ALGUMAS VARIAVEIS GLOBAIS ESTATICAS
 
-# Screen size
+# Option and settings
+TITLE = "Our Game"
+
 WIDTH = 1024
 HEIGHT = 768
 
