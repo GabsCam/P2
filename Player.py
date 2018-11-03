@@ -1,5 +1,6 @@
 import pygame
 import colorAndProperties
+import math
 
 class newPlayer(pygame.sprite.Sprite):
     #sprite for the player
@@ -14,3 +15,8 @@ class newPlayer(pygame.sprite.Sprite):
         # Crio uma variavel chamada rect que sera um retangulo que abrigara minha imagem
         self.rect = self.image.get_rect()
         self.rect.center = (colorAndProperties.WIDTH / 2, colorAndProperties.HEIGHT / 2)
+
+    def update(self):
+        self.rect.x += 5
+        if self.rect.left > colorAndProperties.WIDTH:
+            self.rect.right = 0
